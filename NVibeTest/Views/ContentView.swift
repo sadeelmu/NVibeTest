@@ -6,14 +6,13 @@
 //
 
 import SwiftUI
+//this is the main screen with origin & destination, button to search route, and embedded MapView.
 
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        // Map display
+        
         }
         .padding()
     }

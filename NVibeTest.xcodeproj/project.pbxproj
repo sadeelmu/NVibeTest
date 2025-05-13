@@ -13,6 +13,11 @@
 		12617A922DD2338200BD4396 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12617A912DD2338200BD4396 /* Preview Assets.xcassets */; };
 		12617AA62DD2392200BD4396 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 12617AA52DD2392200BD4396 /* RxCocoa */; };
 		12617AA82DD2392200BD4396 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 12617AA72DD2392200BD4396 /* RxSwift */; };
+		12617AB12DD3D87000BD4396 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB02DD3D87000BD4396 /* MapView.swift */; };
+		12617AB32DD3D88600BD4396 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB22DD3D88600BD4396 /* NavigationViewModel.swift */; };
+		12617AB52DD3D8AF00BD4396 /* RouteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB42DD3D8AF00BD4396 /* RouteModel.swift */; };
+		12617AB72DD3D8B700BD4396 /* RouteStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB62DD3D8B700BD4396 /* RouteStep.swift */; };
+		12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB82DD3DAA700BD4396 /* RouteService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		12617A8E2DD2338100BD4396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12617A912DD2338200BD4396 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		12617A932DD2338200BD4396 /* NVibeTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NVibeTest.entitlements; sourceTree = "<group>"; };
+		12617AB02DD3D87000BD4396 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		12617AB22DD3D88600BD4396 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
+		12617AB42DD3D8AF00BD4396 /* RouteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteModel.swift; sourceTree = "<group>"; };
+		12617AB62DD3D8B700BD4396 /* RouteStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStep.swift; sourceTree = "<group>"; };
+		12617AB82DD3DAA700BD4396 /* RouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +66,12 @@
 		12617A892DD2338000BD4396 /* NVibeTest */ = {
 			isa = PBXGroup;
 			children = (
+				12617AAD2DD3D74500BD4396 /* Utils */,
+				12617AAC2DD3D6A200BD4396 /* Views */,
+				12617AAB2DD3D69300BD4396 /* ViewModel */,
+				12617AAA2DD3D3DA00BD4396 /* Services */,
+				12617AA92DD3D3CE00BD4396 /* Models */,
 				12617A8A2DD2338000BD4396 /* NVibeTestApp.swift */,
-				12617A8C2DD2338000BD4396 /* ContentView.swift */,
 				12617A8E2DD2338100BD4396 /* Assets.xcassets */,
 				12617A932DD2338200BD4396 /* NVibeTest.entitlements */,
 				12617A902DD2338200BD4396 /* Preview Content */,
@@ -71,6 +85,47 @@
 				12617A912DD2338200BD4396 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		12617AA92DD3D3CE00BD4396 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				12617AB42DD3D8AF00BD4396 /* RouteModel.swift */,
+				12617AB62DD3D8B700BD4396 /* RouteStep.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		12617AAA2DD3D3DA00BD4396 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				12617AB82DD3DAA700BD4396 /* RouteService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		12617AAB2DD3D69300BD4396 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				12617AB22DD3D88600BD4396 /* NavigationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		12617AAC2DD3D6A200BD4396 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				12617A8C2DD2338000BD4396 /* ContentView.swift */,
+				12617AB02DD3D87000BD4396 /* MapView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		12617AAD2DD3D74500BD4396 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,8 +205,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12617AB32DD3D88600BD4396 /* NavigationViewModel.swift in Sources */,
 				12617A8D2DD2338000BD4396 /* ContentView.swift in Sources */,
+				12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */,
+				12617AB12DD3D87000BD4396 /* MapView.swift in Sources */,
+				12617AB52DD3D8AF00BD4396 /* RouteModel.swift in Sources */,
 				12617A8B2DD2338000BD4396 /* NVibeTestApp.swift in Sources */,
+				12617AB72DD3D8B700BD4396 /* RouteStep.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
