@@ -11,12 +11,12 @@ import CoreLocation
 
 // MARK: - RouteModel
 ///model for Directions API response
-struct RouteModel: Codable {
+struct RouteModel: Decodable {
     let routes: [Route] //list of possible routes
     let status: String //api response status
 }
 /// Represents a full route, containing legs and an overview polyline
-struct Route: Codable {
+struct Route: Decodable {
     let legs: [Leg]
     let overviewPolyline: Polyline
 
@@ -27,6 +27,6 @@ struct Route: Codable {
 }
 
 /// Represents a leg of a route containing multiple steps
-struct Leg: Codable {
-    let steps: [RouteStep] 
+struct Leg: Decodable {
+    let steps: [RouteStep]
 }
