@@ -6,15 +6,12 @@
 //
 
 import SwiftUI
-//this is the main screen with origin & destination, button to search route, and embedded MapView.
 
 struct ContentView: View {
+    private let viewModel = NavigationViewModel()
+
     var body: some View {
-        VStack {
-        // Map display
-        
-        }
-        .padding()
+        NavigationViewUI(viewModel: viewModel)
     }
 }
 
