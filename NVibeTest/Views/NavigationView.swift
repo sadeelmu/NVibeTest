@@ -15,136 +15,93 @@ import CoreLocation
 struct NavigationViewUI: View {
     @ObservedObject var viewModelWrapper: NavigationViewModelWrapper
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
+        center: CLLocationCoordinate2D(latitude: 48.8584, longitude: 2.2945),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
     )
     
     var body: some View {
         VStack(spacing: 12) {
-            Text("Trouver un itinéraire")
-                .font(.title)
-                .fontWeight(.semibold)
-                .foregroundColor(.blue)
-                .padding(.top, 12)
-            
-            VStack(spacing: 0) {
-                // Departure TextField + suggestions dropdown
-                VStack(spacing: 0) {
-                    TextField("Adresse de départ", text: $viewModelWrapper.departureAddress)
-                        .padding(10)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
-                        .padding(.horizontal, 16)
-                    
-                    if !viewModelWrapper.departureSuggestions.isEmpty {
-                        ScrollView {
-                            VStack(spacing: 0) {
-                                ForEach(viewModelWrapper.departureSuggestions, id: \.self) { suggestion in
-                                    Text(suggestion)
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 20)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .background(Color.white)
-                                        .onTapGesture {
-                                            viewModelWrapper.departureAddress = suggestion
-                                            viewModelWrapper.departureSuggestions = []
-                                        }
-                                    Divider()
-                                }
-                            }
-                        }
-                        .frame(maxHeight: 150)
-                        .background(Color.white)
-                        .cornerRadius(8)
-                        .shadow(radius: 3)
-                        .padding(.horizontal, 16)
-                    }
-                }
-                .zIndex(2) // Make sure suggestions appear above other views
+            // Departure TextField with suggestions
+            VStack(alignment: .leading, spacing: 0) {
+                TextField("Adresse de départ", text: $viewModelWrapper.departureAddress)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
                 
-                // Arrival TextField + suggestions dropdown
-                VStack(spacing: 0) {
-                    TextField("Adresse d'arrivée", text: $viewModelWrapper.arrivalAddress)
-                        .padding(10)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
-                        .padding(.horizontal, 16)
-                        .padding(.top, 8)
-                    
-                    if !viewModelWrapper.arrivalSuggestions.isEmpty {
-                        ScrollView {
-                            VStack(spacing: 0) {
-                                ForEach(viewModelWrapper.arrivalSuggestions, id: \.self) { suggestion in
-                                    Text(suggestion)
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 20)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .background(Color.white)
-                                        .onTapGesture {
-                                            viewModelWrapper.arrivalAddress = suggestion
-                                            viewModelWrapper.arrivalSuggestions = []
-                                        }
-                                    Divider()
-                                }
+                if !viewModelWrapper.departureSuggestions.isEmpty {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 0) {
+                            ForEach(viewModelWrapper.departureSuggestions, id: \.self) { suggestion in
+                                Text(suggestion)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal)
+                                    .background(Color.white)
+                                    .onTapGesture {
+                                        viewModelWrapper.departureAddress = suggestion
+                                        viewModelWrapper.departureSuggestions = []
+                                    }
+                                    .border(Color.gray.opacity(0.5), width: 0.5)
                             }
                         }
-                        .frame(maxHeight: 150)
-                        .background(Color.white)
-                        .cornerRadius(8)
-                        .shadow(radius: 3)
-                        .padding(.horizontal, 16)
                     }
+                    .frame(maxHeight: 150)
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .shadow(radius: 3)
+                    .padding(.horizontal)
                 }
-                .zIndex(1)
             }
             
-            Button(action: {
-                viewModelWrapper.fetchRoute()
-            }) {
-                Text("Rechercher l'itinéraire")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding(.vertical, 10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .padding(.horizontal, 16)
+            // Arrival TextField with suggestions
+            VStack(alignment: .leading, spacing: 0) {
+                TextField("Adresse d'arrivée", text: $viewModelWrapper.arrivalAddress)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+                
+                if !viewModelWrapper.arrivalSuggestions.isEmpty {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 0) {
+                            ForEach(viewModelWrapper.arrivalSuggestions, id: \.self) { suggestion in
+                                Text(suggestion)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal)
+                                    .background(Color.white)
+                                    .onTapGesture {
+                                        viewModelWrapper.arrivalAddress = suggestion
+                                        viewModelWrapper.arrivalSuggestions = []
+                                    }
+                                    .border(Color.gray.opacity(0.5), width: 0.5)
+                            }
+                        }
+                    }
+                    .frame(maxHeight: 150)
+                    .background(Color.white)
+                    .cornerRadius(8)
                     .shadow(radius: 3)
+                    .padding(.horizontal)
+                }
             }
-            .padding(.top, 12)
+            
+            Button("Calculer l'itinéraire") {
+                viewModelWrapper.fetchRoute()
+            }
+            .padding()
             
             MapView(steps: viewModelWrapper.routeSteps, region: $region)
-                .frame(height: 200)
-                .cornerRadius(10)
-                .padding(.horizontal, 16)
-                .shadow(radius: 3)
+                .edgesIgnoringSafeArea(.bottom)
+                .frame(height: 300)
+                .cornerRadius(12)
+                .padding(.horizontal)
             
-            if viewModelWrapper.routeSteps.isEmpty {
-                Text("Aucune instruction pour le moment.")
-                    .foregroundColor(.gray)
-                    .padding(.top, 8)
-            } else {
-                List(viewModelWrapper.routeSteps) { step in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(step.htmlInstructions.stripHTML())
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                        Text(step.distance.text)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.vertical, 2)
+            List(viewModelWrapper.routeSteps) { step in
+                VStack(alignment: .leading) {
+                    Text(step.htmlInstructions.stripHTML())
+                        .font(.headline)
+                    Text(step.distance.text)
+                        .font(.subheadline)
                 }
-                .listStyle(PlainListStyle())
             }
-            
-            Spacer()
         }
-        .background(Color(.systemBackground))
-        .navigationTitle("Navigation")
-        .navigationBarTitleDisplayMode(.inline)
+        .background(Color(white: 0.95)) 
     }
 }
 
