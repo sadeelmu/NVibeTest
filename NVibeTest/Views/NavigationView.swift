@@ -20,90 +20,122 @@ struct NavigationViewUI: View {
     )
     
     var body: some View {
-        VStack(spacing: 12) {
-            // Departure TextField with suggestions
-            VStack(alignment: .leading, spacing: 0) {
-                TextField("Adresse de départ", text: $viewModelWrapper.departureAddress)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
+        ScrollView {
+            VStack(spacing: 16) {
                 
-                if !viewModelWrapper.departureSuggestions.isEmpty {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 0) {
-                            ForEach(viewModelWrapper.departureSuggestions, id: \.self) { suggestion in
-                                Text(suggestion)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal)
-                                    .background(Color.white)
-                                    .onTapGesture {
-                                        viewModelWrapper.departureAddress = suggestion
-                                        viewModelWrapper.departureSuggestions = []
-                                    }
-                                    .border(Color.gray.opacity(0.5), width: 0.5)
+                // MARK: Departure Input & Suggestions
+                VStack(alignment: .leading, spacing: 0) {
+                    TextField("Adresse de départ", text: $viewModelWrapper.departureAddress)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(.horizontal)
+                    
+                    if !viewModelWrapper.departureSuggestions.isEmpty {
+                        ScrollView {
+                            VStack(spacing: 0) {
+                                ForEach(viewModelWrapper.departureSuggestions, id: \.self) { suggestion in
+                                    Text(suggestion)
+                                        .padding(.vertical, 10)
+                                        .padding(.horizontal)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .background(Color.white)
+                                        .onTapGesture {
+                                            viewModelWrapper.departureAddress = suggestion
+                                            viewModelWrapper.departureSuggestions = []
+                                        }
+                                    Divider()
+                                }
                             }
                         }
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        .padding(.horizontal)
+                        .frame(maxHeight: 88) // fixed max height, scrollable
                     }
-                    .frame(maxHeight: 150)
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .shadow(radius: 3)
-                    .padding(.horizontal)
                 }
-            }
-            
-            // Arrival TextField with suggestions
-            VStack(alignment: .leading, spacing: 0) {
-                TextField("Adresse d'arrivée", text: $viewModelWrapper.arrivalAddress)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
                 
-                if !viewModelWrapper.arrivalSuggestions.isEmpty {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 0) {
-                            ForEach(viewModelWrapper.arrivalSuggestions, id: \.self) { suggestion in
-                                Text(suggestion)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal)
-                                    .background(Color.white)
-                                    .onTapGesture {
-                                        viewModelWrapper.arrivalAddress = suggestion
-                                        viewModelWrapper.arrivalSuggestions = []
-                                    }
-                                    .border(Color.gray.opacity(0.5), width: 0.5)
+                // MARK: Arrival Input & Suggestions
+                VStack(alignment: .leading, spacing: 0) {
+                    TextField("Adresse d'arrivée", text: $viewModelWrapper.arrivalAddress)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(.horizontal)
+                    
+                    if !viewModelWrapper.arrivalSuggestions.isEmpty {
+                        ScrollView {
+                            VStack(spacing: 0) {
+                                ForEach(viewModelWrapper.arrivalSuggestions, id: \.self) { suggestion in
+                                    Text(suggestion)
+                                        .padding(.vertical, 10)
+                                        .padding(.horizontal)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .background(Color.white)
+                                        .onTapGesture {
+                                            viewModelWrapper.arrivalAddress = suggestion
+                                            viewModelWrapper.arrivalSuggestions = []
+                                        }
+                                    Divider()
+                                }
                             }
                         }
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        .padding(.horizontal)
+                        .frame(maxHeight: 88) // fixed max height, scrollable
                     }
-                    .frame(maxHeight: 150)
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .shadow(radius: 3)
+                }
+                
+                // MARK: Calculate Button
+                Button(action: {
+                    viewModelWrapper.fetchRoute()
+                }) {
+                    Text("Calculer l'itinéraire")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .padding(.horizontal)
+                }
+                
+                // MARK: MapView
+                MapView(steps: viewModelWrapper.routeSteps, region: $region)
+                    .frame(height: 300)
+                    .cornerRadius(12)
+                    .padding(.horizontal)
+                
+                // MARK: Route Steps
+                if !viewModelWrapper.routeSteps.isEmpty {
+                    Text("Étapes de l'itinéraire")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+                    
+                    VStack(spacing: 8) {
+                        ForEach(viewModelWrapper.routeSteps) { step in
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(step.htmlInstructions.stripHTML())
+                                    .font(.body)
+                                Text(step.distance.text)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
+                        }
+                    }
                     .padding(.horizontal)
                 }
             }
-            
-            Button("Calculer l'itinéraire") {
-                viewModelWrapper.fetchRoute()
-            }
-            .padding()
-            
-            MapView(steps: viewModelWrapper.routeSteps, region: $region)
-                .edgesIgnoringSafeArea(.bottom)
-                .frame(height: 300)
-                .cornerRadius(12)
-                .padding(.horizontal)
-            
-            List(viewModelWrapper.routeSteps) { step in
-                VStack(alignment: .leading) {
-                    Text(step.htmlInstructions.stripHTML())
-                        .font(.headline)
-                    Text(step.distance.text)
-                        .font(.subheadline)
-                }
-            }
+            .padding(.top)
         }
-        .background(Color(white: 0.95)) 
+        .background(Color(white: 0.95).ignoresSafeArea())
     }
 }
+
 
 
 // Wrapper to bridge RxSwift ViewModel with SwiftUI
@@ -120,17 +152,11 @@ final class NavigationViewModelWrapper: NSObject, ObservableObject, MKLocalSearc
     @Published var departureSuggestions: [String] = []
     @Published var arrivalSuggestions: [String] = []
 
-    var routeCoordinatesPublisher: Published<[RouteStep]>.Publisher { $routeSteps }
-
     private var cancellables = Set<AnyCancellable>()
 
     // LocalSearchCompleters for autocomplete
     private let departureSearchCompleter = MKLocalSearchCompleter()
     private let arrivalSearchCompleter = MKLocalSearchCompleter()
-
-    override init() {
-        fatalError("Use init(viewModel:) instead")
-    }
 
     init(viewModel: NavigationViewModel) {
         self.viewModel = viewModel
@@ -142,22 +168,27 @@ final class NavigationViewModelWrapper: NSObject, ObservableObject, MKLocalSearc
         departureSearchCompleter.resultTypes = .address
         arrivalSearchCompleter.resultTypes = .address
 
-        // Sync SwiftUI inputs -> RxSwift BehaviorRelay
+        // Debounced Departure Input
         $departureAddress
-            .sink { [weak self] newValue in
-                self?.viewModel.departureAddress.accept(newValue)
-                self?.departureSearchCompleter.queryFragment = newValue
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] query in
+                self?.viewModel.departureAddress.accept(query)
+                self?.departureSearchCompleter.queryFragment = query
             }
             .store(in: &cancellables)
 
+        // Debounced Arrival Input
         $arrivalAddress
-            .sink { [weak self] newValue in
-                self?.viewModel.arrivalAddress.accept(newValue)
-                self?.arrivalSearchCompleter.queryFragment = newValue
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] query in
+                self?.viewModel.arrivalAddress.accept(query)
+                self?.arrivalSearchCompleter.queryFragment = query
             }
             .store(in: &cancellables)
 
-        // Bind RxSwift outputs -> SwiftUI Published
+        // Bind ViewModel Outputs
         viewModel.routeSteps
             .drive(onNext: { [weak self] steps in
                 self?.routeSteps = steps
@@ -186,18 +217,18 @@ final class NavigationViewModelWrapper: NSObject, ObservableObject, MKLocalSearc
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            let addresses = completer.results.map { $0.title + ", " + $0.subtitle }
+
+            let suggestions = completer.results.map { "\($0.title), \($0.subtitle)" }
 
             if completer == self.departureSearchCompleter {
-                self.departureSuggestions = addresses
+                self.departureSuggestions = suggestions
             } else if completer == self.arrivalSearchCompleter {
-                self.arrivalSuggestions = addresses
+                self.arrivalSuggestions = suggestions
             }
         }
     }
 
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        // Handle error if needed
-        print("Autocomplete error: \(error.localizedDescription)")
+        print("SearchCompleter failed: \(error.localizedDescription)")
     }
 }

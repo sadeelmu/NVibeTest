@@ -29,11 +29,11 @@ struct MapView: UIViewRepresentable {
         
         // Colors to cycle through for steps
         let colors: [UIColor] = [.systemBlue, .systemGreen, .systemOrange, .systemPurple, .systemRed, .systemTeal]
-        
+
         for (index, step) in steps.enumerated() {
             let coords = PolylineDecoder.decodePolyline(step.polyline.points)
             guard !coords.isEmpty else { continue }
-            
+
             let polyline = ColorPolyline(coordinates: coords, count: coords.count)
             polyline.color = colors[index % colors.count]
             uiView.addOverlay(polyline)
@@ -45,7 +45,7 @@ struct MapView: UIViewRepresentable {
             uiView.addAnnotation(annotation)
         }
     }
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -57,11 +57,8 @@ struct MapView: UIViewRepresentable {
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
-        
-        init(_ parent: MapView) {
-            self.parent = parent
-        }
-        
+        init(_ parent: MapView) { self.parent = parent }
+
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let polyline = overlay as? ColorPolyline {
                 let renderer = MKPolylineRenderer(polyline: polyline)
@@ -71,36 +68,18 @@ struct MapView: UIViewRepresentable {
             }
             return MKOverlayRenderer()
         }
-        
+
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            if annotation is MKUserLocation {
-                return nil
-            }
-            
-            let identifier = "stepPin"
-            var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            if annotation is MKUserLocation { return nil }
+            let id = "stepPin"
+            var view = mapView.dequeueReusableAnnotationView(withIdentifier: id)
             if view == nil {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: id)
                 view?.canShowCallout = true
             } else {
                 view?.annotation = annotation
             }
             return view
         }
-    }
-}
-
-extension String {
-    // Simple helper to strip HTML tags from step instructions
-    func stripHTML() -> String {
-        guard let data = self.data(using: .utf8) else { return self }
-        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
-            .documentType: NSAttributedString.DocumentType.html,
-            .characterEncoding: String.Encoding.utf8.rawValue
-        ]
-        if let attributed = try? NSAttributedString(data: data, options: options, documentAttributes: nil) {
-            return attributed.string
-        }
-        return self
     }
 }

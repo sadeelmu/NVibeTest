@@ -13,8 +13,8 @@ import RxCocoa
 struct NVibeTestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                
+            NavigationViewUI(viewModelWrapper: NavigationViewModelWrapper(viewModel: NavigationViewModel()))
         }
     }
 }
+
