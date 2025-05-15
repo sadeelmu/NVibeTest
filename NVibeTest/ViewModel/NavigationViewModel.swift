@@ -37,7 +37,33 @@ final class NavigationViewModel {
     init(routeService: RouteServiceProtocol = RouteService()) {
         self.routeService = routeService
         
-        let loading = ActivityIndicator()        
-      
+        let loading = ActivityIndicator()
+        let error = PublishRelay<String>()
+        
+        let routeResult = fetchRouteTrigger
+            .withLatestFrom(Observable.combineLatest(departureAddress, arrivalAddress))
+            .flatMapLatest { departure, arrival -> Observable<Route> in
+                return routeService.fetchRoute(from: departure, to: arrival)
+                    .map { routeModel in
+                        routeModel.routes.first ?? Route(legs: [], overviewPolyline: Polyline(points: ""))
+                    }
+                    .trackActivity(loading)
+                    .catch { err in
+                        error.accept(err.localizedDescription)
+                        return .empty()
+                    }
+            }
+            .share(replay: 1, scope: .whileConnected)
+        
+        routeCoordinates = routeResult
+            .map { PolylineDecoder.decodePolyline($0.overviewPolyline.points) }
+            .asDriver(onErrorJustReturn: [])
+        
+        routeSteps = routeResult
+            .map { $0.legs.first?.steps ?? [] }
+            .asDriver(onErrorJustReturn: [])
+        
+        isLoading = loading.asDriver()
+        errorMessage = error.asDriver(onErrorJustReturn: "Unknown error")
     }
 }
