@@ -14,7 +14,7 @@ import CoreLocation
 // MARK: - RouteService
 ///Service responsible for fetching route data from Google Directions API. handles calling the Google Directions API and parsing the JSON
 
-class RouteService {
+class RouteService: RouteServiceProtocol {
     
     // MARK: - Properties
     private let apiKey = "AIzaSyA90XcualPjWXuVmlvfpUnvcVLP3WLu7Ng" 
