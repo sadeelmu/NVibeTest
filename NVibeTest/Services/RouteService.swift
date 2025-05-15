@@ -17,7 +17,7 @@ import CoreLocation
 class RouteService: RouteServiceProtocol {
     
     // MARK: - Properties
-    private let apiKey = "AIzaSyA90XcualPjWXuVmlvfpUnvcVLP3WLu7Ng" 
+    private let apiKey = "AIzaSyAVZG1XaFPCWt-a038Sgt8mLmPWVs0y_uU" 
     private let baseURL = "https://maps.googleapis.com/maps/api/directions/json"
 
     // MARK: - Public Method

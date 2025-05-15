@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import CoreLocation
+import MapKit
 
 /// ViewModel responsible for handling navigation logic:
 /// - Accepts departure and arrival addresses
@@ -28,6 +29,7 @@ final class NavigationViewModel {
     let routeSteps: Driver<[RouteStep]>
     let isLoading: Driver<Bool>
     let errorMessage: Driver<String>
+    let overviewPolyline: Driver<MKPolyline?>  
     
     // MARK: - Private properties
     private let disposeBag = DisposeBag()
@@ -66,6 +68,14 @@ final class NavigationViewModel {
         routeSteps = routeResult
             .map { $0.legs.first?.steps ?? [] }
             .asDriver(onErrorJustReturn: [])
+        
+        // Create MKPolyline for map overview display
+        overviewPolyline = routeCoordinates
+            .map { coords in
+                guard !coords.isEmpty else { return nil }
+                return MKPolyline(coordinates: coords, count: coords.count)
+            }
+            .asDriver(onErrorJustReturn: nil)
         
         isLoading = loading.asDriver()
         errorMessage = error.asDriver(onErrorJustReturn: "Unknown error")
