@@ -37,7 +37,8 @@ struct NavigationViewUI: View {
             }
             .padding()
             
-            MapView(coordinates: viewModelWrapper.routeCoordinates)
+            // Pass routeSteps, not just coordinates
+            MapView(steps: viewModelWrapper.routeSteps, region: $region)
                 .edgesIgnoringSafeArea(.bottom)
             
             // Loading indicator
@@ -53,17 +54,24 @@ struct NavigationViewUI: View {
                     .padding()
             }
         }
-        .onReceive(viewModelWrapper.routeCoordinatesPublisher) { coords in
-            if let first = coords.first {
-                region = MKCoordinateRegion(
-                    center: first,
-                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                )
+        .onReceive(viewModelWrapper.$routeSteps) { steps in
+            // Zoom map to fit all step coordinates
+            let allCoords = steps.flatMap { PolylineDecoder.decodePolyline($0.polyline.points) }
+            guard !allCoords.isEmpty else { return }
+            
+            let mapRect = allCoords.reduce(MKMapRect.null) { partialResult, coord in
+                let point = MKMapPoint(coord)
+                let rect = MKMapRect(x: point.x, y: point.y, width: 0, height: 0)
+                return partialResult.union(rect)
+            }
+            
+            // Animate region update on main thread
+            DispatchQueue.main.async {
+                region = MKCoordinateRegion(mapRect)
             }
         }
     }
 }
-
 
 // Wrapper to bridge RxSwift ViewModel with SwiftUI
 final class NavigationViewModelWrapper: ObservableObject {
@@ -75,11 +83,10 @@ final class NavigationViewModelWrapper: ObservableObject {
     @Published var routeSteps: [RouteStep] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String = ""
-    @Published var routeCoordinates: [CLLocationCoordinate2D] = []
+    
+    var routeCoordinatesPublisher: Published<[RouteStep]>.Publisher { $routeSteps }
     
     private var cancellables = Set<AnyCancellable>()
-    
-    var routeCoordinatesPublisher: Published<[CLLocationCoordinate2D]>.Publisher { $routeCoordinates }
     
     init(viewModel: NavigationViewModel) {
         self.viewModel = viewModel
@@ -113,12 +120,6 @@ final class NavigationViewModelWrapper: ObservableObject {
         viewModel.errorMessage
             .drive(onNext: { [weak self] message in
                 self?.errorMessage = message
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.routeCoordinates
-            .drive(onNext: { [weak self] coords in
-                self?.routeCoordinates = coords
             })
             .disposed(by: disposeBag)
     }

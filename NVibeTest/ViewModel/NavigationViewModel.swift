@@ -46,7 +46,7 @@ final class NavigationViewModel {
             .flatMapLatest { departure, arrival -> Observable<Route> in
                 return routeService.fetchRoute(from: departure, to: arrival)
                     .map { response in
-                        // Get the first route if available
+                        // Use the first route or fallback empty route
                         response.routes.first ?? Route(legs: [], overviewPolyline: Polyline(points: ""))
                     }
                     .trackActivity(loading)
