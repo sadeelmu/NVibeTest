@@ -9,77 +9,78 @@ import SwiftUI
 import MapKit
 import UIKit
 
+
 struct MapView: UIViewRepresentable {
-    var steps: [RouteStep]  // Use route steps for multi-segment drawing
+    var overviewPolyline: MKPolyline?
+    var steps: [RouteStep]
     @Binding var region: MKCoordinateRegion
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
+        mapView.showsUserLocation = true
         mapView.setRegion(region, animated: false)
         return mapView
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.setRegion(region, animated: true)
-        
-        // Remove all overlays & annotations
+        // Clear existing overlays and annotations
         uiView.removeOverlays(uiView.overlays)
         uiView.removeAnnotations(uiView.annotations)
         
-        // Colors to cycle through for steps
-        let colors: [UIColor] = [.systemBlue, .systemGreen, .systemOrange, .systemPurple, .systemRed, .systemTeal]
-
-        for (index, step) in steps.enumerated() {
-            let coords = PolylineDecoder.decodePolyline(step.polyline.points)
-            guard !coords.isEmpty else { continue }
-
-            let polyline = ColorPolyline(coordinates: coords, count: coords.count)
-            polyline.color = colors[index % colors.count]
+        // Add polyline if available
+        if let polyline = overviewPolyline {
             uiView.addOverlay(polyline)
-            
-            // Add pin annotation for step instructions
+            uiView.setVisibleMapRect(polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50), animated: true)
+        } else {
+            // Optional: Reset to default region if no route
+            uiView.setRegion(region, animated: true)
+        }
+        
+        // Add step annotations
+        for step in steps {
             let annotation = MKPointAnnotation()
-            annotation.coordinate = coords.first!
+            annotation.coordinate = CLLocationCoordinate2D(latitude: step.startLocation.lat, longitude: step.startLocation.lng)
             annotation.title = step.htmlInstructions.stripHTML()
             uiView.addAnnotation(annotation)
         }
     }
-
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
-    // Custom polyline subclass to hold color
-    class ColorPolyline: MKPolyline {
-        var color: UIColor = .systemBlue
-    }
-
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
-        init(_ parent: MapView) { self.parent = parent }
-
+        
+        init(_ parent: MapView) {
+            self.parent = parent
+        }
+        
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if let polyline = overlay as? ColorPolyline {
+            if let polyline = overlay as? MKPolyline {
                 let renderer = MKPolylineRenderer(polyline: polyline)
-                renderer.strokeColor = polyline.color
-                renderer.lineWidth = 4
+                renderer.strokeColor = .systemBlue
+                renderer.lineWidth = 5
                 return renderer
             }
-            return MKOverlayRenderer()
+            return MKOverlayRenderer(overlay: overlay)
         }
-
+        
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            if annotation is MKUserLocation { return nil }
-            let id = "stepPin"
-            var view = mapView.dequeueReusableAnnotationView(withIdentifier: id)
-            if view == nil {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: id)
-                view?.canShowCallout = true
+            let identifier = "StepAnnotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+            
+            if annotationView == nil {
+                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
             } else {
-                view?.annotation = annotation
+                annotationView?.annotation = annotation
             }
-            return view
+            
+            annotationView?.markerTintColor = .systemRed
+            return annotationView
         }
     }
 }
+
