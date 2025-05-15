@@ -37,5 +37,7 @@ final class NavigationViewModel {
     init(routeService: RouteServiceProtocol = RouteService()) {
         self.routeService = routeService
         
+        let loading = ActivityIndicator()        
+      
     }
 }

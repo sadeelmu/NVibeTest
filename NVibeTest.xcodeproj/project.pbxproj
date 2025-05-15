@@ -20,6 +20,7 @@
 		12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB82DD3DAA700BD4396 /* RouteService.swift */; };
 		12617ABB2DD5B4BA00BD4396 /* PolylineDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617ABA2DD5B4BA00BD4396 /* PolylineDecoder.swift */; };
 		12617ABF2DD5B7E100BD4396 /* RouteServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617ABE2DD5B7E100BD4396 /* RouteServiceProtocol.swift */; };
+		12617AC22DD5B8B100BD4396 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AC12DD5B8B100BD4396 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		12617AB82DD3DAA700BD4396 /* RouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
 		12617ABA2DD5B4BA00BD4396 /* PolylineDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineDecoder.swift; sourceTree = "<group>"; };
 		12617ABE2DD5B7E100BD4396 /* RouteServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteServiceProtocol.swift; sourceTree = "<group>"; };
+		12617AC12DD5B8B100BD4396 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,9 +131,18 @@
 		12617AAD2DD3D74500BD4396 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				12617AC02DD5B8A700BD4396 /* Helpers */,
 				12617ABA2DD5B4BA00BD4396 /* PolylineDecoder.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		12617AC02DD5B8A700BD4396 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				12617AC12DD5B8B100BD4396 /* ActivityIndicator.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +228,7 @@
 				12617ABB2DD5B4BA00BD4396 /* PolylineDecoder.swift in Sources */,
 				12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */,
 				12617AB12DD3D87000BD4396 /* MapView.swift in Sources */,
+				12617AC22DD5B8B100BD4396 /* ActivityIndicator.swift in Sources */,
 				12617AB52DD3D8AF00BD4396 /* RouteModel.swift in Sources */,
 				12617A8B2DD2338000BD4396 /* NVibeTestApp.swift in Sources */,
 				12617AB72DD3D8B700BD4396 /* RouteStep.swift in Sources */,
