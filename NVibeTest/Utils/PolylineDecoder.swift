@@ -17,44 +17,46 @@ struct PolylineDecoder {
     static func decodePolyline(_ encodedPolyline: String) -> [CLLocationCoordinate2D] {
         var coordinates: [CLLocationCoordinate2D] = []
         var index = encodedPolyline.startIndex
-        let length = encodedPolyline.count
-
-        var latitude: Int32 = 0
-        var longitude: Int32 = 0
-
+        
+        var latitude: Int64 = 0
+        var longitude: Int64 = 0
+        
         while index < encodedPolyline.endIndex {
-            var byte: UInt32 = 0
-            var result: UInt32 = 0
-            var shift: UInt32 = 0
-
+            var byte: UInt64 = 0
+            var result: UInt64 = 0
+            var shift: UInt64 = 0
+            
             repeat {
-                byte = UInt32(encodedPolyline[index].asciiValue!) - 63
+                guard index < encodedPolyline.endIndex else { break }
+                byte = UInt64(encodedPolyline[index].asciiValue!) - 63
                 result |= (byte & 0x1F) << shift
                 shift += 5
                 index = encodedPolyline.index(after: index)
-            } while byte >= 0x20
-
+            } while byte >= 0x20 && index < encodedPolyline.endIndex
+            
             let deltaLat = ((result & 1) != 0) ? ~(result >> 1) : (result >> 1)
-            latitude += Int32(deltaLat)
-
+            latitude += Int64(Int64(bitPattern: deltaLat))
+            
+            // reset for longitude
             shift = 0
             result = 0
-
+            
             repeat {
-                byte = UInt32(encodedPolyline[index].asciiValue!) - 63
+                guard index < encodedPolyline.endIndex else { break }
+                byte = UInt64(encodedPolyline[index].asciiValue!) - 63
                 result |= (byte & 0x1F) << shift
                 shift += 5
                 index = encodedPolyline.index(after: index)
-            } while byte >= 0x20
-
+            } while byte >= 0x20 && index < encodedPolyline.endIndex
+            
             let deltaLon = ((result & 1) != 0) ? ~(result >> 1) : (result >> 1)
-            longitude += Int32(deltaLon)
-
+            longitude += Int64(Int64(bitPattern: deltaLon))
+            
             let lat = Double(latitude) / 1e5
             let lon = Double(longitude) / 1e5
             coordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
         }
-
+        
         return coordinates
     }
 }

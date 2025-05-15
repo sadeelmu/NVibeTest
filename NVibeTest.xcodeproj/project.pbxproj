@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		124076DC2DD5F613004D14B4 /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124076DB2DD5F613004D14B4 /* String+HTML.swift */; };
 		12617A8B2DD2338000BD4396 /* NVibeTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617A8A2DD2338000BD4396 /* NVibeTestApp.swift */; };
 		12617A8D2DD2338000BD4396 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617A8C2DD2338000BD4396 /* ContentView.swift */; };
 		12617A8F2DD2338100BD4396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12617A8E2DD2338100BD4396 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		124076DB2DD5F613004D14B4 /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		12617A872DD2338000BD4396 /* NVibeTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NVibeTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12617A8A2DD2338000BD4396 /* NVibeTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVibeTestApp.swift; sourceTree = "<group>"; };
 		12617A8C2DD2338000BD4396 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				12617AC12DD5B8B100BD4396 /* ActivityIndicator.swift */,
+				124076DB2DD5F613004D14B4 /* String+HTML.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				12617AB32DD3D88600BD4396 /* NavigationViewModel.swift in Sources */,
 				12617ABF2DD5B7E100BD4396 /* RouteServiceProtocol.swift in Sources */,
 				12617AC42DD5B9C600BD4396 /* NavigationView.swift in Sources */,
+				124076DC2DD5F613004D14B4 /* String+HTML.swift in Sources */,
 				12617A8D2DD2338000BD4396 /* ContentView.swift in Sources */,
 				12617ABB2DD5B4BA00BD4396 /* PolylineDecoder.swift in Sources */,
 				12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */,
