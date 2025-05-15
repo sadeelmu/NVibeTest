@@ -9,8 +9,9 @@ import Foundation
 import CoreLocation
 
 /// contain the individual step in the route with instructions and location info
-struct RouteStep: Codable {
+struct RouteStep: Decodable, Identifiable {
     /// A single navigation step with instructions, distance, and polyline
+    let id = UUID()
     let htmlInstructions: String
     let distance: Distance
     let duration: Duration
