@@ -11,7 +11,6 @@ import CoreLocation
 // MARK: - PolylineDecoder
 /// Utility to decode encoded Google Maps polyline strings into CLLocationCoordinate2D array.
 struct PolylineDecoder {
-    
     /// Decodes an encoded polyline string into an array of CLLocationCoordinate2D.
     /// - Parameter encodedPolyline: The encoded polyline string.
     /// - Returns: Array of CLLocationCoordinate2D representing the path.

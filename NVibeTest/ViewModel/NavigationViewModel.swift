@@ -40,12 +40,14 @@ final class NavigationViewModel {
         let loading = ActivityIndicator()
         let error = PublishRelay<String>()
         
+        // When fetchRouteTrigger fires, get latest departure & arrival addresses and fetch route
         let routeResult = fetchRouteTrigger
             .withLatestFrom(Observable.combineLatest(departureAddress, arrivalAddress))
             .flatMapLatest { departure, arrival -> Observable<Route> in
                 return routeService.fetchRoute(from: departure, to: arrival)
-                    .map { routeModel in
-                        routeModel.routes.first ?? Route(legs: [], overviewPolyline: Polyline(points: ""))
+                    .map { response in
+                        // Get the first route if available
+                        response.routes.first ?? Route(legs: [], overviewPolyline: Polyline(points: ""))
                     }
                     .trackActivity(loading)
                     .catch { err in
@@ -55,10 +57,12 @@ final class NavigationViewModel {
             }
             .share(replay: 1, scope: .whileConnected)
         
+        // Decode polyline string to coordinates for map rendering
         routeCoordinates = routeResult
             .map { PolylineDecoder.decodePolyline($0.overviewPolyline.points) }
             .asDriver(onErrorJustReturn: [])
         
+        // Provide steps for turn-by-turn instructions
         routeSteps = routeResult
             .map { $0.legs.first?.steps ?? [] }
             .asDriver(onErrorJustReturn: [])
