@@ -18,6 +18,7 @@
 		12617AB52DD3D8AF00BD4396 /* RouteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB42DD3D8AF00BD4396 /* RouteModel.swift */; };
 		12617AB72DD3D8B700BD4396 /* RouteStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB62DD3D8B700BD4396 /* RouteStep.swift */; };
 		12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB82DD3DAA700BD4396 /* RouteService.swift */; };
+		12617ABB2DD5B4BA00BD4396 /* PolylineDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617ABA2DD5B4BA00BD4396 /* PolylineDecoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		12617AB42DD3D8AF00BD4396 /* RouteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteModel.swift; sourceTree = "<group>"; };
 		12617AB62DD3D8B700BD4396 /* RouteStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStep.swift; sourceTree = "<group>"; };
 		12617AB82DD3DAA700BD4396 /* RouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
+		12617ABA2DD5B4BA00BD4396 /* PolylineDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineDecoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 		12617AAD2DD3D74500BD4396 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				12617ABA2DD5B4BA00BD4396 /* PolylineDecoder.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			files = (
 				12617AB32DD3D88600BD4396 /* NavigationViewModel.swift in Sources */,
 				12617A8D2DD2338000BD4396 /* ContentView.swift in Sources */,
+				12617ABB2DD5B4BA00BD4396 /* PolylineDecoder.swift in Sources */,
 				12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */,
 				12617AB12DD3D87000BD4396 /* MapView.swift in Sources */,
 				12617AB52DD3D8AF00BD4396 /* RouteModel.swift in Sources */,
