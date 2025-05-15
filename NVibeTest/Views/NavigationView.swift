@@ -100,10 +100,15 @@ struct NavigationViewUI: View {
                 }
                 
                 // MARK: MapView
-                MapView(steps: viewModelWrapper.routeSteps, region: $region)
-                    .frame(height: 300)
-                    .cornerRadius(12)
-                    .padding(.horizontal)
+                MapView(
+                    overviewPolyline: viewModelWrapper.overviewPolyline,
+                    steps: viewModelWrapper.routeSteps,
+                    region: $region
+                )
+                .frame(height: 300)
+                .cornerRadius(12)
+                .padding(.horizontal)
+
                 
                 // MARK: Route Steps
                 if !viewModelWrapper.routeSteps.isEmpty {
@@ -148,13 +153,13 @@ final class NavigationViewModelWrapper: NSObject, ObservableObject, MKLocalSearc
     @Published var routeSteps: [RouteStep] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String = ""
+    @Published var overviewPolyline: MKPolyline? = nil
 
     @Published var departureSuggestions: [String] = []
     @Published var arrivalSuggestions: [String] = []
 
     private var cancellables = Set<AnyCancellable>()
 
-    // LocalSearchCompleters for autocomplete
     private let departureSearchCompleter = MKLocalSearchCompleter()
     private let arrivalSearchCompleter = MKLocalSearchCompleter()
 
@@ -167,6 +172,32 @@ final class NavigationViewModelWrapper: NSObject, ObservableObject, MKLocalSearc
 
         departureSearchCompleter.resultTypes = .address
         arrivalSearchCompleter.resultTypes = .address
+
+        // Bind the overviewPolyline from the underlying viewModel to our @Published var
+        viewModel.overviewPolyline
+            .drive(onNext: { [weak self] polyline in
+                self?.overviewPolyline = polyline
+            })
+            .disposed(by: disposeBag)
+
+        // Bind the routeSteps from viewModel to our @Published
+        viewModel.routeSteps
+            .drive(onNext: { [weak self] steps in
+                self?.routeSteps = steps
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.isLoading
+            .drive(onNext: { [weak self] loading in
+                self?.isLoading = loading
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.errorMessage
+            .drive(onNext: { [weak self] message in
+                self?.errorMessage = message
+            })
+            .disposed(by: disposeBag)
 
         // Debounced Departure Input
         $departureAddress
@@ -187,25 +218,6 @@ final class NavigationViewModelWrapper: NSObject, ObservableObject, MKLocalSearc
                 self?.arrivalSearchCompleter.queryFragment = query
             }
             .store(in: &cancellables)
-
-        // Bind ViewModel Outputs
-        viewModel.routeSteps
-            .drive(onNext: { [weak self] steps in
-                self?.routeSteps = steps
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.isLoading
-            .drive(onNext: { [weak self] loading in
-                self?.isLoading = loading
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.errorMessage
-            .drive(onNext: { [weak self] message in
-                self?.errorMessage = message
-            })
-            .disposed(by: disposeBag)
     }
 
     func fetchRoute() {
@@ -217,9 +229,7 @@ final class NavigationViewModelWrapper: NSObject, ObservableObject, MKLocalSearc
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-
             let suggestions = completer.results.map { "\($0.title), \($0.subtitle)" }
-
             if completer == self.departureSearchCompleter {
                 self.departureSuggestions = suggestions
             } else if completer == self.arrivalSearchCompleter {
@@ -232,3 +242,4 @@ final class NavigationViewModelWrapper: NSObject, ObservableObject, MKLocalSearc
         print("SearchCompleter failed: \(error.localizedDescription)")
     }
 }
+
