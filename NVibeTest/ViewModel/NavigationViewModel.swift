@@ -31,7 +31,7 @@ final class NavigationViewModel {
     
     // MARK: - Private properties
     private let disposeBag = DisposeBag()
-    private let routeService: RouteServiceProtocol //will define in a bit
+    private let routeService: RouteServiceProtocol
     
     // MARK: - Initialization
     init(routeService: RouteServiceProtocol = RouteService()) {

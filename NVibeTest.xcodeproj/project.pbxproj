@@ -19,6 +19,7 @@
 		12617AB72DD3D8B700BD4396 /* RouteStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB62DD3D8B700BD4396 /* RouteStep.swift */; };
 		12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AB82DD3DAA700BD4396 /* RouteService.swift */; };
 		12617ABB2DD5B4BA00BD4396 /* PolylineDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617ABA2DD5B4BA00BD4396 /* PolylineDecoder.swift */; };
+		12617ABF2DD5B7E100BD4396 /* RouteServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617ABE2DD5B7E100BD4396 /* RouteServiceProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		12617AB62DD3D8B700BD4396 /* RouteStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStep.swift; sourceTree = "<group>"; };
 		12617AB82DD3DAA700BD4396 /* RouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
 		12617ABA2DD5B4BA00BD4396 /* PolylineDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineDecoder.swift; sourceTree = "<group>"; };
+		12617ABE2DD5B7E100BD4396 /* RouteServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteServiceProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				12617AB82DD3DAA700BD4396 /* RouteService.swift */,
+				12617ABE2DD5B7E100BD4396 /* RouteServiceProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12617AB32DD3D88600BD4396 /* NavigationViewModel.swift in Sources */,
+				12617ABF2DD5B7E100BD4396 /* RouteServiceProtocol.swift in Sources */,
 				12617A8D2DD2338000BD4396 /* ContentView.swift in Sources */,
 				12617ABB2DD5B4BA00BD4396 /* PolylineDecoder.swift in Sources */,
 				12617AB92DD3DAA700BD4396 /* RouteService.swift in Sources */,
