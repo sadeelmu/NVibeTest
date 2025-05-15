@@ -22,7 +22,22 @@
 		12617ABF2DD5B7E100BD4396 /* RouteServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617ABE2DD5B7E100BD4396 /* RouteServiceProtocol.swift */; };
 		12617AC22DD5B8B100BD4396 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AC12DD5B8B100BD4396 /* ActivityIndicator.swift */; };
 		12617AC42DD5B9C600BD4396 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12617AC32DD5B9C600BD4396 /* NavigationView.swift */; };
+		12E36BC72DD5CEF40010D29E /* NVibeTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E36BC62DD5CEF40010D29E /* NVibeTestTests.swift */; };
+		12E36BCB2DD5CEF80010D29E /* NavigationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E36BBD2DD5CE4F0010D29E /* NavigationViewModelTests.swift */; };
+		12E36BCD2DD5D03A0010D29E /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 12E36BCC2DD5D03A0010D29E /* RxCocoa */; };
+		12E36BCF2DD5D03B0010D29E /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 12E36BCE2DD5D03B0010D29E /* RxSwift */; };
+		12E36BD12DD5D03B0010D29E /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 12E36BD02DD5D03B0010D29E /* RxTest */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		12E36BD82DD5D6030010D29E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12617A7F2DD2338000BD4396 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12617A862DD2338000BD4396;
+			remoteInfo = NVibeTest;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		12617A872DD2338000BD4396 /* NVibeTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NVibeTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +55,9 @@
 		12617ABE2DD5B7E100BD4396 /* RouteServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteServiceProtocol.swift; sourceTree = "<group>"; };
 		12617AC12DD5B8B100BD4396 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		12617AC32DD5B9C600BD4396 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
+		12E36BBD2DD5CE4F0010D29E /* NavigationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModelTests.swift; sourceTree = "<group>"; };
+		12E36BC42DD5CEF30010D29E /* NVibeTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NVibeTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		12E36BC62DD5CEF40010D29E /* NVibeTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVibeTestTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +70,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		12E36BC12DD5CEF30010D29E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E36BCF2DD5D03B0010D29E /* RxSwift in Frameworks */,
+				12E36BD12DD5D03B0010D29E /* RxTest in Frameworks */,
+				12E36BCD2DD5D03A0010D29E /* RxCocoa in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -59,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				12617A892DD2338000BD4396 /* NVibeTest */,
+				12E36BC52DD5CEF40010D29E /* NVibeTestTests */,
 				12617A882DD2338000BD4396 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				12617A872DD2338000BD4396 /* NVibeTest.app */,
+				12E36BC42DD5CEF30010D29E /* NVibeTestTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,6 +178,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		12E36BC52DD5CEF40010D29E /* NVibeTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				12E36BBD2DD5CE4F0010D29E /* NavigationViewModelTests.swift */,
+				12E36BC62DD5CEF40010D29E /* NVibeTestTests.swift */,
+			);
+			path = NVibeTestTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -172,6 +211,29 @@
 			productReference = 12617A872DD2338000BD4396 /* NVibeTest.app */;
 			productType = "com.apple.product-type.application";
 		};
+		12E36BC32DD5CEF30010D29E /* NVibeTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12E36BC82DD5CEF40010D29E /* Build configuration list for PBXNativeTarget "NVibeTestTests" */;
+			buildPhases = (
+				12E36BC02DD5CEF30010D29E /* Sources */,
+				12E36BC12DD5CEF30010D29E /* Frameworks */,
+				12E36BC22DD5CEF30010D29E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				12E36BD92DD5D6030010D29E /* PBXTargetDependency */,
+			);
+			name = NVibeTestTests;
+			packageProductDependencies = (
+				12E36BCC2DD5D03A0010D29E /* RxCocoa */,
+				12E36BCE2DD5D03B0010D29E /* RxSwift */,
+				12E36BD02DD5D03B0010D29E /* RxTest */,
+			);
+			productName = NVibeTestTests;
+			productReference = 12E36BC42DD5CEF30010D29E /* NVibeTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -179,11 +241,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					12617A862DD2338000BD4396 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					12E36BC32DD5CEF30010D29E = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 12617A862DD2338000BD4396;
 					};
 				};
 			};
@@ -204,6 +270,7 @@
 			projectRoot = "";
 			targets = (
 				12617A862DD2338000BD4396 /* NVibeTest */,
+				12E36BC32DD5CEF30010D29E /* NVibeTestTests */,
 			);
 		};
 /* End PBXProject section */
@@ -215,6 +282,13 @@
 			files = (
 				12617A922DD2338200BD4396 /* Preview Assets.xcassets in Resources */,
 				12617A8F2DD2338100BD4396 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12E36BC22DD5CEF30010D29E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +313,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		12E36BC02DD5CEF30010D29E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E36BCB2DD5CEF80010D29E /* NavigationViewModelTests.swift in Sources */,
+				12E36BC72DD5CEF40010D29E /* NVibeTestTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		12E36BD92DD5D6030010D29E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12617A862DD2338000BD4396 /* NVibeTest */;
+			targetProxy = 12E36BD82DD5D6030010D29E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		12617A942DD2338200BD4396 /* Debug */ = {
@@ -277,6 +368,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -340,6 +432,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -414,6 +507,45 @@
 			};
 			name = Release;
 		};
+		12E36BC92DD5CEF40010D29E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PW6U8F3M2Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = sadlye.NVibeTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NVibeTest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NVibeTest";
+			};
+			name = Debug;
+		};
+		12E36BCA2DD5CEF40010D29E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PW6U8F3M2Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = sadlye.NVibeTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NVibeTest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NVibeTest";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -431,6 +563,15 @@
 			buildConfigurations = (
 				12617A972DD2338200BD4396 /* Debug */,
 				12617A982DD2338200BD4396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		12E36BC82DD5CEF40010D29E /* Build configuration list for PBXNativeTarget "NVibeTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12E36BC92DD5CEF40010D29E /* Debug */,
+				12E36BCA2DD5CEF40010D29E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -458,6 +599,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 12617AA42DD2392200BD4396 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		12E36BCC2DD5D03A0010D29E /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12617AA42DD2392200BD4396 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		12E36BCE2DD5D03B0010D29E /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12617AA42DD2392200BD4396 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		12E36BD02DD5D03B0010D29E /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12617AA42DD2392200BD4396 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

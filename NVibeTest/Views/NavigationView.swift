@@ -37,13 +37,8 @@ struct NavigationViewUI: View {
             }
             .padding()
             
-            // Map with annotations for route steps
-            Map(coordinateRegion: $region,
-                showsUserLocation: true,
-                annotationItems: viewModelWrapper.routeSteps) { step in
-                MapMarker(coordinate: step.startLocation.coordinate, tint: .blue)
-            }
-            .edgesIgnoringSafeArea(.bottom)
+            MapView(coordinates: viewModelWrapper.routeCoordinates)
+                .edgesIgnoringSafeArea(.bottom)
             
             // Loading indicator
             if viewModelWrapper.isLoading {
@@ -68,6 +63,7 @@ struct NavigationViewUI: View {
         }
     }
 }
+
 
 // Wrapper to bridge RxSwift ViewModel with SwiftUI
 final class NavigationViewModelWrapper: ObservableObject {
